@@ -15,15 +15,15 @@ public:
     {
         if(!root)
             return 0;
-        int l = solve(root->left, dia);
-        int r = solve(root->right, dia);
-        dia = max(dia, l + r);
-        return 1 + max(l, r);
+        int l = solve(root->left, dia); // Height of the left subtree
+        int r = solve(root->right, dia); // Height of the right subtree
+        dia = max(dia, l + r); // Update diameter
+        return 1 + max(l, r); // return height till now
     }
 
     int diameterOfBinaryTree(TreeNode* root) {
         int dia = 0;
-        solve(root, dia);
+        solve(root, dia); // Call function to calculate the diamater as we calculate the height
         return dia;
     }
 };
