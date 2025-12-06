@@ -23,7 +23,7 @@ public:
         {
             s.insert(nums[i]); // Add the new element to the window.
             while(j <= i && (*s.rbegin() - *s.begin()) > k) // Check window validity and increment j if condition is not satisfied.
-                s.erase(s.find(nums[j])), // We need to erase single instance of the element hence get the iterator to the element, if value is given all the instances will be erased
+                s.erase(s.find(nums[j])), // We need to erase single instance of the element hence get the iterator to the element, if value is given all the instances will be erased,then the window mechanics will break since j is not updates properly hence we need to delete multiple instances one by one only as if the j is being moved slowly to the right.
                 j++;
             // update dp[i+1] (1 based index) : dp[i+1] = prefix[i] - prefix[j-1] --> sum of dp from j to i.
             if(j > 0) 
