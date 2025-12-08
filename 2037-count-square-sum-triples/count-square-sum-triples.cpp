@@ -8,10 +8,7 @@ public:
             {
                 int c = ceil(sqrt(a*a + b*b));
                 if(((a*a + b*b) == c*c) && (c <= n))
-                {
                     cnt++;
-                    // cout << a << ' ' << b << ' ' << c << endl;
-                }
             }
         }
         return cnt;
