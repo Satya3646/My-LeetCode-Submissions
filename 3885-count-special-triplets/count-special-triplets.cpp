@@ -5,6 +5,9 @@ public:
         int n = nums.size();
         int mod = 1e9+7;
         unordered_map <int, int> l,r; // maps to keep left and right counts.
+        // l.reserve(n);
+        // r.reserve(n);
+
         for(auto i : nums) // Initially rmap has whole array.
             r[i]++;
         // Handle the zeros beforehand.
