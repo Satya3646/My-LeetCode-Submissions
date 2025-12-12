@@ -26,7 +26,7 @@ public:
                 {
                     for(int i = 0; i < n; i++)
                     {
-                        if(time >= status[i]) // if current time >= status[i] the the user will come online for this event henve set his status to onlie and mention him.
+                        if(time >= status[i]) // if current time >= status[i] the the user will come online for this event hence set his status to online and mention him.
                         {
                             // status[i] = -1 case is automatically handled, -1 is the sentinel value we used to have this possible.
                             status[i] = -1;
