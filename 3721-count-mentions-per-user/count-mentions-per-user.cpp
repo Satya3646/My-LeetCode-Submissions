@@ -3,8 +3,7 @@ public:
     vector <int> countMentions(int n, vector <vector <string>> &events)
     {
         vector <int> mentions(n);
-        unordered_map <int, int> offlineUsers;
-        offlineUsers.reserve(n);
+        vector <int> status(n);
         sort(events.begin(), events.end(), [](vector <string> &a, vector <string> &b)
         {
             int ta = stoi(a[1]), tb = stoi(b[1]);
@@ -26,17 +25,11 @@ public:
                 {
                     for(int i = 0; i < n; i++)
                     {
-                        bool online = true;
-                        auto it = offlineUsers.find(i);
-                        if(it != offlineUsers.end())
+                        if(time >= status[i])
                         {
-                            if(time >= it->second)
-                                offlineUsers.erase(it);
-                            else
-                                online = false;
-                        }
-                        if(online)
+                            status[i] = -1;
                             mentions[i]++;
+                        }
                     }
                 }
                 else
@@ -49,7 +42,7 @@ public:
             }
             else
             {
-                offlineUsers[stoi(event[2])] = time + 60;
+                status[stoi(event[2])] = time + 60;
             }
         }
         return mentions;
