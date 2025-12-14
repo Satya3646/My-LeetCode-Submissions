@@ -11,14 +11,16 @@
  */
 class Solution {
 public:
+    // Inorder traversal of BST gives the nodes in their sorted so we just make use of it, decrementing k for every nnode we visit and when k becomes zero we just return that node.
     int kthSmallest(TreeNode* root, int &k)
     {
         if(!root)
             return -1;
         int l = kthSmallest(root->left, k);
-        if(k == 0)
+        if(l != -1)
             return l;
-        if(--k == 0)
+        k--;
+        if(k == 0)
             return root->val;
         return kthSmallest(root->right, k);
     }
