@@ -5,11 +5,7 @@ public:
         sort(happiness.rbegin(), happiness.rend());
         long long totalHappiness = 0;
         for(int i = 0; i < k; i++)
-        {
-            if(happiness[i] <= i)
-                break;
-            totalHappiness += (happiness[i] - i);
-        }
+            totalHappiness += max(0, happiness[i] - i);
         return totalHappiness;
     }
 };
