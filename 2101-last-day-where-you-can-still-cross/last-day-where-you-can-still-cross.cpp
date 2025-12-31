@@ -55,3 +55,16 @@ public:
         return high;
     }
 };
+
+/* 
+Here deciding the answer space is simple : [0, row*col], this will work fine,
+be we can optimize it further which doesnt make BS any faster just to flex math
+lets do it : 
+  - So now for the low, we can obviously reach the bottom row, but think of the max day
+    that we can reach if we block the path optimally, in col days we can sink all the 
+    bottom cell hence the last bottom cell will be reachable in the (col-1)th day.
+  - Next for the upper bound, we are playing lazy and want the last day we can extend 
+    till bottom is unreachable, if we sunk all the cells except the last column then
+    even sinking any one cell in last col makes it impossible to reach the bottom hence
+    the upper bound of the answer is row*(col-1).
+*/
