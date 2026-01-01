@@ -12,13 +12,14 @@ public:
             i--;
         }
 
-        vector <int> ans; 
-        // if carry is there the add 1 to the start of ans.
-        if(carry) 
-            ans.push_back(1);
-        // insert the digits at the end of answer.
-        ans.insert(ans.end(), digits.begin(), digits.end()); 
-
-        return ans;
+        // vector <int> ans; 
+        // // if carry is there the add 1 to the start of ans.
+        // if(carry) 
+        //     ans.push_back(1);
+        // // insert the digits at the end of answer.
+        // ans.insert(ans.end(), digits.begin(), digits.end());
+        if(carry)
+            digits.insert(digits.begin(), 1);
+        return digits;
     }
 };
