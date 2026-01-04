@@ -1,33 +1,38 @@
+
+
+
+
 class Solution {
 public:
-    int sumDivisors(int n)
+    bool done = false;
+    vector <int> count;
+    vector <int> sum;
+
+    void preCompute()
     {
-        int cnt = 0;
-        int sum = 0;
-        int sqrtN = (int)sqrt(n); 
-        for(int i = 1; i <= sqrtN; i++)
+        done = true;
+        const int MAX = 1e5;
+        count.resize(MAX+1, 1);
+        sum.resize(MAX+1, 1);
+
+        for(int i = 2; i <= MAX; i++)
         {
-            if(n % i == 0)
+            for(int j = i; j <= MAX; j += i)
             {
-                sum += i;
-                cnt++;
-                if(n/i != i)
-                {
-                    sum += n/i;
-                    cnt++;
-                }
+                count[j]++;
+                sum[j] += i;
             }
         }
-        if(cnt == 4)
-            return sum;
-        return 0;
     }
 
     int sumFourDivisors(vector<int>& nums) {
+        if(!done)
+            preCompute();
         int n = nums.size();
         int ans = 0;
         for(int &i : nums)
-            ans += sumDivisors(i);
+            if(count[i] == 4)
+                ans += sum[i];
         return ans;
     }
 };
