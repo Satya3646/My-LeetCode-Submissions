@@ -1,35 +1,27 @@
 class Solution {
 public:
-    int solve(int i, int j, vector<int>& nums1, vector<int>& nums2, vector <vector <int>> &dp)
-    {
-        if(i == nums1.size()) // end of nums1 so cant choose further.
-        {
-            if(j == 0) // none from nums2 was choosen so return INT_MIN to make this path invalid, no pairs were selected.
-                return INT_MIN;
-            return 0; // 0 since no more pairs can be formed since nums1 is exhausted.
-        }
-        if(j == nums2.size()) // end of nums2, none left to pick so return 0.
-            return 0;
-
-        if(dp[i][j] != -1) // if already computed the return directly.
-            return dp[i][j];
-        
-        int skip = solve(i+1, j, nums1, nums2, dp); // skip element at i.
-
-        // pick element at i and find product with different possibilities from j to end.
-        int pick = INT_MIN;
-        for(int k = j; k < nums2.size(); k++)
-            pick = max(pick, nums1[i] * nums2[k] + solve(i+1, k+1, nums1, nums2, dp));
-
-        dp[i][j] = max(pick, skip); // update dp.
-        return dp[i][j];
-    }
-
-    int maxDotProduct(vector<int>& nums1, vector<int>& nums2)
+    int maxDotProduct(vector <int> &nums1, vector <int> &nums2)
     {
         int n1 = nums1.size();
         int n2 = nums2.size();
-        vector <vector <int>> dp(n1, vector <int> (n2, -1));
-        return solve(0, 0, nums1, nums2, dp);
+        vector <vector <int>> dp(n1+1, vector <int> (n2+1, INT_MIN));
+
+        for(int i = 1; i <= n1; i++)
+        {
+            for(int j = 1; j <= n2; j++)
+            {
+                int prod = nums1[i-1] * nums2[j-1]; // product of current picks (i, j).
+                int take = INT_MIN;
+                if(i > 1 && j > 1) // get the "prev max" + "current prod"
+                    take = prod + dp[i-1][j-1];
+
+                /* take the largest among prod, 
+                   sum by taking current pair, 
+                   not pick current i, not picking current j. */
+                dp[i][j] = max({prod, take, dp[i-1][j], dp[i][j-1]});
+            }
+        }
+
+        return dp[n1][n2];
     }
 };
