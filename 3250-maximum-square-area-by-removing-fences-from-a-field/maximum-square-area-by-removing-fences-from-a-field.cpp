@@ -8,6 +8,8 @@ public:
         vFences.push_back(1);
         vFences.push_back(n);
         unordered_set <int> hGaps, vGaps;
+        hGaps.reserve(hFences.size() + 2);
+        vGaps.reserve(vFences.size() + 2);
         for(int i : hFences)
             for(int j : hFences)
                 if(j != i)
