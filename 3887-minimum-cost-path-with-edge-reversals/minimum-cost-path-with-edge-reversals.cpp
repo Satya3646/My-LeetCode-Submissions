@@ -3,12 +3,15 @@ public:
     int minCost(int n, vector<vector<int>>& edges)
     {
         vector <vector <pair <int, int>>> adj(n);
+
+        // Create the adjacency list with both normal edge and reversed edge.
         for(vector <int> &v : edges)
         {
             adj[v[0]].push_back({v[1], v[2]});
             adj[v[1]].push_back({v[0], 2*v[2]});
         }
 
+        // Perform normal dijkstra on the created adjacency list.
         priority_queue <pair <int, int>,
                         vector<pair <int, int>>,
                         greater <pair <int, int>>> pq;
