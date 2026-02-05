@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector <int> constructTransformedArray(vector<int>& nums)
+    {
+        int n = nums.size();
+        vector <int> result(n);
+        for(int i = 0, num; i < n; i++)
+        {
+            num = nums[i];
+            if(num == 0)
+                result[i] = num;
+            else if(num > 0)
+                result[i] = nums[(i + num) % n];
+            else
+                result[i] = nums[(((i + num) % n) + n) % n];
+        }
+        return result;
+    }
+};
