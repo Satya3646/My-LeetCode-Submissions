@@ -14,8 +14,7 @@ public:
         {
             while(i < j && 1LL*nums[j] > 1LL*k*nums[i]) // Shrink while condition not satisfied.
                 i++;
-            if(nums[i] >= nums[j] / k)
-                maxLen = max(maxLen, j-i+1);
+            maxLen = max(maxLen, j-i+1);
             j++;
         }
         // Now we have the maximum length of the window that satisfies our condition.
