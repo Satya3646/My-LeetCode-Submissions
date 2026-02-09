@@ -11,21 +11,21 @@
  */
 class Solution {
 public:
-    void getInorder(TreeNode* root, vector <int> &nodes)
+    void getInorder(TreeNode* root, vector <TreeNode*> &nodes)
     {
         if(!root)
             return;
         getInorder(root->left, nodes);
-        nodes.push_back(root->val);
+        nodes.push_back(root);
         getInorder(root->right, nodes);
     }
 
-    TreeNode* buildBinaryTree(vector <int> nodes, int left, int right)
+    TreeNode* buildBinaryTree(vector <TreeNode*> nodes, int left, int right)
     {
         if(left > right)
             return nullptr;
         int mid = left + ((right - left) >> 1);
-        TreeNode* root = new TreeNode(nodes[mid]);
+        TreeNode* root = nodes[mid];
         root->left = buildBinaryTree(nodes, left, mid-1);
         root->right = buildBinaryTree(nodes, mid+1, right);
         return root;
@@ -33,7 +33,7 @@ public:
 
     TreeNode* balanceBST(TreeNode* root)
     {
-        vector <int> nodes;
+        vector <TreeNode*> nodes;
         getInorder(root, nodes);
         return buildBinaryTree(nodes, 0, nodes.size()-1);
     }
