@@ -16,7 +16,7 @@ public:
         if(!root)
             return;
         getInorder(root->left, nodes);
-        nodes.push_back(root);
+        nodes.emplace_back(root);
         getInorder(root->right, nodes);
     }
 
