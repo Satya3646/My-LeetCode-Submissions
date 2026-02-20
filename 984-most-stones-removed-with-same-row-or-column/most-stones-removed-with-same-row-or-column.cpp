@@ -2,11 +2,13 @@ class dsu {
 public:
     vector <int> parent;
     vector <int> size;
+    int components;
 
     dsu(int n)
     {
         parent.resize(n);
         size.resize(n, 1);
+        components = n;
 
         for(int i = 0; i < n; i++)
             parent[i] = i;
@@ -42,6 +44,8 @@ public:
             parent[ulpu] = ulpv;
             size[ulpv] += size[ulpu];
         }
+
+        components--;
     }
 };
 
@@ -59,13 +63,16 @@ public:
                 if(stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1])
                     grid.Union(i, j);
 
+        /*
         // find the number of components.
         int cnt = 0;
         for(int i = 0; i < n; i++)
             if(grid.parent[i] == i)
                 cnt++;
+        // FYI - counting components can be built into the DSU class itself.
+        */
         
         // from each components one stone is left and rest all can be removed.
-        return n - cnt;
+        return n - grid.components;
     }
 };
