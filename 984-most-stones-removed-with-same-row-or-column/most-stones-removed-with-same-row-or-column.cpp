@@ -55,6 +55,7 @@ public:
     {
         int n = stones.size();
 
+        /*
         // consider each stone as a node.
         // If the row index or col index of a pair of nodes match then they are connected.
         dsu grid = dsu(n);
@@ -62,6 +63,30 @@ public:
             for(int j = i+1; j < n; j++)
                 if(stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1])
                     grid.Union(i, j);
+        */
+        
+        // consider each row and column as a DSU node.
+        // column come after last row index(maxRow) by offsetting.
+        int maxRow = INT_MIN, maxCol = INT_MIN;
+        for(int i = 0; i < n; i++)
+        {
+            maxRow = max(maxRow, stones[i][0]);
+            maxCol = max(maxCol, stones[i][1]);
+        }
+
+        dsu grid = dsu(maxRow + maxCol + 2);
+
+        unordered_set <int> used;
+        for(int i = 0; i < n; i++)
+        {
+            int row = stones[i][0];
+            int col = stones[i][1] + maxRow + 1;
+
+            grid.Union(row, col);
+
+            used.insert(row);
+            used.insert(col);
+        }
 
         /*
         // find the number of components.
@@ -71,8 +96,13 @@ public:
                 cnt++;
         // FYI - counting components can be built into the DSU class itself.
         */
+
+        int cnt = 0;
+        for(int i : used)
+            if(grid.findPar(i) == i)
+                cnt++;
         
         // from each components one stone is left and rest all can be removed.
-        return n - grid.components;
+        return n - cnt;
     }
 };
