@@ -1,10 +1,12 @@
 class dsu {
 public:
     vector <int> parent;
+    vector <int> size;
 
     dsu(int n)
     {
         parent.resize(n);
+        size.resize(n, 1);
 
         for(int i = 0; i < n; i++)
             parent[i] = i;
@@ -24,10 +26,22 @@ public:
         
         if(ulpu == ulpv)
             return;
-
+        /*
         // here no need any criterion to merging the groups.
         // but using size/rank will make it faster.
         parent[ulpv] = ulpu;
+        */
+
+        if(size[ulpv] < size[ulpu])
+        {
+            parent[ulpv] = ulpu;
+            size[ulpu] += size[ulpv];
+        }
+        else
+        {
+            parent[ulpu] = ulpv;
+            size[ulpv] += size[ulpu];
+        }
     }
 };
 
