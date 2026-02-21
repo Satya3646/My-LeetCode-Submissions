@@ -39,23 +39,26 @@ public:
         unordered_map <string, int> emailToAccount;
         dsu merge = dsu(n);
 
+        // map each email to index of the username in accounts vector.
         for(int i = 0; i < n; i++)
         {
-            vector <string> &v = accounts[i];
+            vector <string> &v = accounts[i]; // create a reference.
             int m = v.size();
-            for(int j = 1; j < m; j++)
+            for(int j = 1; j < m; j++) // iterate the emails.
             {
                 auto it = emailToAccount.find(v[j]);
-                if(it == emailToAccount.end())
+                if(it == emailToAccount.end()) // if not already indexed.
                     emailToAccount[v[j]] = i;
-                else
-                    merge.Union(it->second, i);    
+                else // already indexed, the the email is appearing a 2nd time hence do union.
+                    merge.Union(it->second, i);
             }
         }
 
+        // Combine the merged accounts emails into a single vector.
         vector <vector <string>> mergedMails(n);
         for(auto &[email, node] : emailToAccount)
         {
+            // use the ultimate parent as index.
             node = merge.findPar(node);
             mergedMails[node].push_back(email);
         }
@@ -63,14 +66,15 @@ public:
         vector <vector <string>> ans;
         for(int i = 0; i < n; i++)
         {
-            vector <string> &emails = mergedMails[i];
+            vector <string> &emails = mergedMails[i]; // create reference.
 
-            if(emails.empty())
+            if(emails.empty()) // if no emails the skip.
                 continue;
             
-            sort(emails.begin(), emails.end());
+            sort(emails.begin(), emails.end()); // sort the emails to get lexi-order.
 
-            ans.push_back({accounts[i][0]});
+            ans.push_back({accounts[i][0]}); // add the username to ans as last element.
+            // append the group of merged emails to the end element of ans.
             ans.back().insert(ans.back().end(), emails.begin(), emails.end());
         }
 
