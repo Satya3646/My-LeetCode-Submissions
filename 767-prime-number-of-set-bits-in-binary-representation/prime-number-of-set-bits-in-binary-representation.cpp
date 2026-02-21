@@ -4,11 +4,14 @@ class Solution {
 public:
     int isPrime(int n)
     {
+        if(n <= 1)
+            return false;
         int sqrtN = sqrt(n);
         int cnt = 0;
-        for(int i = 1; i <= sqrtN; i++)
-            cnt += (n % i == 0) * ((n % i == 0) + (n/i != i));
-        return cnt == 2;
+        for(int i = 2; i <= sqrtN; i++)
+            if(n % i)
+                return false;
+        return true;
     }
 
     int countPrimeSetBits(int left, int right) {
