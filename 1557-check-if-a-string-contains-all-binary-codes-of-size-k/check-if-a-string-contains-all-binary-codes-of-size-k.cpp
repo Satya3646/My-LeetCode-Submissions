@@ -12,11 +12,10 @@ public:
             return false;
         
         // Hash set to store unique codes.
-        unordered_set <int> codes;
+        unordered_set <string> codes;
 
-        // convert the binary string to integer representation and insert it.
         for(int i = 0; i <= n-k; i++)
-            codes.insert(stoi(s.substr(i, k), nullptr, 2));
+            codes.insert(s.substr(i, k));
 
         // if the no. of unique codes is not 2^k then return false.
         return codes.size() == (1 << k);
