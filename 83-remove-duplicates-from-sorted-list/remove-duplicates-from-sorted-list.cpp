@@ -20,10 +20,10 @@ public:
             // if next nodes have same value as current keep on deleting.
             while(it && it->val == curr->val)
             {
-                // ListNode* toDelete = it; // store to later erase the node.
+                ListNode* toDelete = it; // store to later erase the node.
                 curr->next = it->next; // disconnect the duplicate node.
                 it = it->next;
-                // delete toDelete;
+                delete toDelete;
             }
         }
         return head;
