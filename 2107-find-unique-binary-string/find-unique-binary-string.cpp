@@ -30,12 +30,9 @@ public:
             lookUp.insert(stoi(s, nullptr, 2));
         int curr = 0;
         int ans = solve(0, n, curr, lookUp);
-
-        if(ans == -1)
-            return "";
         
         string res = "";
-        while(ans || n)
+        while(ans > 0 || n)
         {
             res += ('0' + (ans&1));
             ans >>= 1;
