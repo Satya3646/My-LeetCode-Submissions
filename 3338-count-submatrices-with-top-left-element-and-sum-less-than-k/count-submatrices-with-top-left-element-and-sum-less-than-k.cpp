@@ -9,8 +9,9 @@ public:
 
         vector <vector <int>> prefixGrid(m, vector <int> (n, 0));
         prefixGrid[0][0] = grid[0][0];
-        int ans = 1;
+        int ans = 1; // include the top-left element.
 
+        // Row Prefix for first row.
         for(int i = 1; i < n; i++)
         {
             prefixGrid[0][i] = prefixGrid[0][i-1] + grid[0][i];
@@ -18,6 +19,7 @@ public:
                 ans++;
         }
 
+        // Column Prefix for first column.
         for(int i = 1; i < m; i++)
         {
             prefixGrid[i][0] = prefixGrid[i-1][0] + grid[i][0];
@@ -25,6 +27,7 @@ public:
                 ans++;
         }
         
+        // Diagonal prefix for all cells.
         for(int i = 1; i < m; i++)
         {
             for(int j = 1; j < n; j++)
@@ -32,7 +35,7 @@ public:
                 prefixGrid[i][j] = prefixGrid[i-1][j] + prefixGrid[i][j-1] - prefixGrid[i-1][j-1] + grid[i][j];
                 if(prefixGrid[i][j] <= k)
                     ans++;
-                else
+                else // When prefix sum exceeds k, no need to calculate further.
                     break;
             }
         }
