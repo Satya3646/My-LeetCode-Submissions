@@ -12,15 +12,17 @@ public:
             for(int j = 0; j < n; j++)
             {
                 // reach current cell from top cell.
-                dp[i][j] = min(dp[i][j], dp[i-1][j] + matrix[i][j]);
+                dp[i][j] = min(dp[i][j], dp[i-1][j]);
 
                 // left diagonally above cell.
                 if(j > 0)
-                    dp[i][j] = min(dp[i][j], dp[i-1][j-1] + matrix[i][j]);
+                    dp[i][j] = min(dp[i][j], dp[i-1][j-1]);
 
                 // right diagonally above cell.
                 if(j < n-1)
-                    dp[i][j] = min(dp[i][j], dp[i-1][j+1] + matrix[i][j]);
+                    dp[i][j] = min(dp[i][j], dp[i-1][j+1]);
+
+                dp[i][j] += matrix[i][j];
             }
         }
 
