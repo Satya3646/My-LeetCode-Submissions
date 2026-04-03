@@ -1,37 +1,41 @@
 class Solution {
 public:
-    int maximumAmount(vector<vector<int>>& coins) {
-        int m = coins.size(), n = coins[0].size() ;
+    int maximumAmount(vector<vector<int>>& coins)
+    {
+        int m = coins.size();
+        int n = coins[0].size();
 
-        vector<vector<int>> dp(n,vector<int>(3,0)) ;
-        
-        for(int i = m-1 ; i >= 0 ; i--) {
-            for(int j = n-1 ; j >= 0 ; j--) {
-                int val = coins[i][j] ; // j
-                if(i == m-1 && j == n-1) {
-                    dp[j][0] = max(val,0) ;
-                    dp[j][1] = max(val,0) ;
-                    dp[j][2] = val ;
-                    continue ;
+        vector <vector <vector <int>>> dp(m, vector <vector <int>> (n, vector <int> (3, -1e8)));
+        dp[0][0][0] = coins[0][0]; 
+        dp[0][0][1] = max(0, coins[0][0]);
+        dp[0][0][2] = max(0, coins[0][0]);
+
+        for(int i = 0; i < m; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                if(i == 0 && j == 0)
+                    continue;
+                
+                for(int k = 0; k < 3; k++)
+                {
+                    int val = -1e8;
+                    if(i > 0)
+                    {
+                        val = max(val, dp[i-1][j][k] + coins[i][j]); // no neutralization.
+                        if(coins[i][j] < 0 && k > 0) // neutralization.
+                            val = max(val, dp[i-1][j][k-1]);
+                    }
+                    if(j > 0)
+                    {
+                        val = max(val, dp[i][j-1][k] + coins[i][j]); // no neutralization.
+                        if(coins[i][j] < 0 && k > 0) // neutralization.
+                            val = max(val, dp[i][j-1][k-1]);
+                    }
+                    dp[i][j][k] = val;
                 }
-                vector<int> d(3,INT_MIN), r(3,INT_MIN) ;
-
-                if(j+1 < n) {
-                    r[0] = max(dp[j+1][0]+val,dp[j+1][1]) ;
-                    r[1] = max(dp[j+1][1]+val,dp[j+1][2]) ;
-                    r[2] = dp[j+1][2]+val ;
-                }
-
-                if(i+1 < m) {
-                    d[0] = max(dp[j][0]+val,dp[j][1]) ;
-                    d[1] = max(dp[j][1]+val,dp[j][2]) ;
-                    d[2] = dp[j][2]+val ;
-                }
-
-                for(int k = 0 ; k < 3 ; k++) dp[j][k] = max(r[k], d[k]) ;
             }
         }
-        
-        return dp[0][0] ;
+        return dp[m-1][n-1][2];
     }
 };
