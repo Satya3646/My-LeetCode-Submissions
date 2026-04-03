@@ -5,7 +5,7 @@ public:
         int m = coins.size();
         int n = coins[0].size();
 
-        vector <vector <vector <int>>> dp(m, vector <vector <int>> (n, vector <int> (3, -1e8)));
+        vector <vector <vector <int>>> dp(m, vector <vector <int>> (n, vector <int> (3, 0)));
         dp[0][0][0] = coins[0][0]; 
         dp[0][0][1] = max(0, coins[0][0]);
         dp[0][0][2] = max(0, coins[0][0]);
