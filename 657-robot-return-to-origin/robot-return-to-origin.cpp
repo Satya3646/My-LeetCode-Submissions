@@ -15,6 +15,7 @@ public:
                 cnt[3]++;
         }
 
+        // for the robo to return to initial position all moves must have their opposite moves.
         return cnt[0] == cnt[1] && cnt[2] == cnt[3];
     }
 };
