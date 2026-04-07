@@ -4,33 +4,21 @@ class Robot {
     int perimeter;
     int m, n;
 
-private:
-    void rotateLeft(char &dir)
-    {
-        if(dir == 'E')
-            dir =  'N';
-        else if(dir == 'N')
-            dir = 'W';
-        else if(dir == 'W')
-            dir = 'S';
-        else if(dir == 'S')
-            dir = 'E';
-    }
-
 public:
     Robot(int width, int height)
     {
-        x = y = 0;
-        dir = 'E';
-        perimeter = 2*width + 2*height - 4;
+        x = y = 0; // position of robot.
+        dir = 'E'; // direction.
+        perimeter = 2*width + 2*height - 4; // perimeter of the grid.
         m = width;
         n = height;
     }
     
     void step(int num)
     {
-        num %= perimeter;
-        if(num == 0)
+        num %= perimeter; // handles full perimeter steps.
+
+        if(num == 0) // if after rotation no more steps left we may have stopped at a corner, to handle direction properly keep it equal to perimeter.
             num = perimeter;
          
         while(num > 0)
