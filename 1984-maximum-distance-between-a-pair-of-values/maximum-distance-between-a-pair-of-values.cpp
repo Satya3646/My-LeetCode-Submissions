@@ -1,8 +1,7 @@
 class Solution {
 public:
-    int findLB(int val, vector <int> &arr)
+    int findLB(int val, vector <int> &arr, int low, int high)
     {
-        int low = 0, high = arr.size()-1;
         while(low <= high)
         {
             int mid = low + ((high - low) >> 1);
@@ -22,9 +21,8 @@ public:
         int maxDist = 0;
         for(int i = 0; i < n; i++)
         {
-            int j = findLB(nums1[i], nums2);
-            if(i < j)
-                maxDist = max(maxDist, j - i);
+            int j = findLB(nums1[i], nums2, i, m-1);
+            maxDist = max(maxDist, j - i);
         }
 
         return maxDist;
