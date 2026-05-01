@@ -7,15 +7,13 @@ public:
         int f = 0;
         for(int i = 0; i < n; i++)
             f += nums[i] * i;
-        cout << f << endl;
+
         int maxF = f;
         int sum = accumulate(nums.begin(), nums.end(), 0);
         for(int k = 1; k < n; k++)
         {
             f -= sum;
-            // f -= (n-2) * nums[k];
-            f += (n) * nums[(k-1+n) % n];
-            cout << f << endl;
+            f += n * nums[(k-1+n) % n];
             maxF = max(maxF, f);
         }
 
